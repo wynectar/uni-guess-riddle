@@ -1,6 +1,10 @@
-# 基于uni-app和Vue3的猜灯谜小程序
+# 【寓教于乐猜灯谜】基于 uni-app + vue3 + pinia 的微信小程序
+
+扫码查看小程序：
+![](./mini-code.jpg)
 
 ## 项目结构
+```
 uni-guess-riddle/
 ├── pages/
 │   ├── index/          # 首页
@@ -10,6 +14,7 @@ uni-guess-riddle/
 ├── store/             # Pinia状态管理
 ├── utils/             # 工具函数
 └── uni.scss           # 全局样式
+```
 
 ## 主要功能
 
