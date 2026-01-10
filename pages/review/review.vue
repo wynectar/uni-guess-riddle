@@ -16,19 +16,20 @@
 	<view class="review-section">
 		<scroll-view class="review-list" scroll-y>
 			<view v-for="(riddle, index) in riddleStore.riddles" :key="riddle.id" class="review-item"
-				:class="{ correct: riddle.isCorrect, wrong: riddle.userAnswer && !riddle.isCorrect }">
+				:class="{ correct: riddle.answer === riddle.userAnswer, wrong: riddle.solved && riddle.answer !== riddle.userAnswer }">
 				<text class="review-index">{{ index + 1 }}.</text>
 				<view class="review-content">
 					<text class="review-question">{{ riddle.question }}</text>
-					<text class="review-answer">答案：{{ riddle.answer }}</text>
-					<text class="review-user-answer">你的答案：{{ riddle.userAnswer }}</text>
+					<text class="review-answer">答案：{{ riddle.options[riddle.answer] }}</text>
+					<text class="review-user-answer">你的答案：{{ riddle.options[riddle.userAnswer] }}</text>
+					<text class="review-explanation">答案解释：{{ riddle.explanation }}</text>
 				</view>
 				<text class="review-status">
-					{{ riddle.solved ? '✓' : riddle.userAnswer ? '✗' : '○' }}
+					{{ riddle.answer === riddle.userAnswer ? '✓' : riddle.solved ? '✗' : '○' }}
 				</text>
 			</view>
 			<view class="flex-between" style="margin: 20rpx 0 60rpx;">
-				<button type="primary" @click="goBack('game')">再来一局</button>
+				<button type="primary" @click="goBack('game')">再来一次</button>
 				<button @click="goBack('index')">返回首页</button>
 			</view>
 		</scroll-view>
@@ -65,12 +66,12 @@
 					margin-bottom: 0;
 				}
 	
-				&.correct {
-					border-left: 6rpx solid #4cd964;
+				&.correct .review-status {
+					color: #4cd964;
 				}
 	
-				&.wrong {
-					border-left: 6rpx solid #ff3b30;
+				&.wrong .review-status {
+					color: #ff3b30;
 				}
 	
 				.review-index {
@@ -99,21 +100,17 @@
 						margin-bottom: 5rpx;
 					}
 	
-					.review-user-answer {
+					.review-explanation {
 						display: block;
 						font-size: 26rpx;
-						color: #ff3b30;
+						color: #2196F3;
 					}
 				}
 	
 				.review-status {
 					font-size: 36rpx;
 					margin-left: 20rpx;
-					color: #4cd964;
-	
-					.review-item.wrong & {
-						color: #ff3b30;
-					}
+					color: #000;
 				}
 			}
 		}

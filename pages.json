@@ -3,27 +3,27 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "寓乐猜灯谜"
+        "navigationBarTitleText": "寓教于乐灯谜"
       }
     },
     {
       "path": "pages/game/game",
       "style": {
-        "navigationBarTitleText": "正在猜灯谜...",
+        "navigationBarTitleText": "乐学灯谜",
         "navigationBarTextStyle": "black"
       }
     },
 	{
 	  "path": "pages/review/review",
 	  "style": {
-	    "navigationBarTitleText": "题目回顾",
+	    "navigationBarTitleText": "灯谜回顾",
 	    "navigationBarTextStyle": "black"
 	  }
 	}
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "寓乐猜灯谜",
+    "navigationBarTitleText": "寓教于乐灯谜",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#f5f5f5"
   }
