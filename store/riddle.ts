@@ -1,7 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import RIDDLE_LIBRARY, {GAME_MODES} from './mega-riddle-library'
+import RIDDLE_LIBRARY, { GAME_MODES } from './mega-riddle-library'
 import { Riddle } from './mega-riddle-library/types'
 
 export const useRiddleStore = defineStore('riddle', () => {
@@ -26,7 +26,7 @@ export const useRiddleStore = defineStore('riddle', () => {
 
   // 随机选择题目
   const selectRandomRiddles = (count: number) => {
-	// 根据难度筛选
+    // 根据难度筛选
     let pool = RIDDLE_LIBRARY.filter(r => GAME_MODES[gameMode.value].difficultyRange.includes(r.difficulty))
 
     // 随机打乱并选择
@@ -37,57 +37,57 @@ export const useRiddleStore = defineStore('riddle', () => {
   // 根据游戏模式设置
   const setGameMode = (mode: 'easy' | 'normal' | 'hard') => {
     gameMode.value = mode
-	totalQuestions.value = GAME_MODES[gameMode.value].questionCount
-	totalScore.value = totalQuestions.value * GAME_MODES[gameMode.value].scoreMultiplier
-	gameTimeLimit.value = GAME_MODES[gameMode.value].timeLimit
+    totalQuestions.value = GAME_MODES[gameMode.value].questionCount
+    totalScore.value = totalQuestions.value * GAME_MODES[gameMode.value].scoreMultiplier
+    gameTimeLimit.value = GAME_MODES[gameMode.value].timeLimit
   }
 
   // 开始新游戏
   const startNewGame = (mode: 'easy' | 'normal' | 'hard' = 'normal') => {
     gameStarted.value = true
     totalScore.value = 0
-	score.value = 0
+    score.value = 0
     currentIndex.value = 0
-    
+
     setGameMode(mode)
     // 随机选择题目
     riddles.value = selectRandomRiddles(totalQuestions.value)
-    
+
     // 开始计时
     if (timer) clearInterval(timer)
     timer = setInterval(() => {
       gameTimeLimit.value--
-	  if (gameTimeLimit.value === 0) {
-		  // endGame()
-	  }
+      if (gameTimeLimit.value === 0) {
+        endGame()
+      }
     }, 1000)
   }
-  
+
   // 选择当前答案
-  const selectCurrentAnswer = (val:string) => {
-	  currentRiddle.value.userAnswer = val
+  const selectCurrentAnswer = (val: string) => {
+    currentRiddle.value.userAnswer = val
   }
 
   // 提交答案
   const submitAnswer = () => {
-	const userAnswer = currentRiddle.value.userAnswer
+    const userAnswer = currentRiddle.value.userAnswer
     if (!userAnswer) return false
-    
+
     const isCorrect = userAnswer === currentRiddle.value.answer
-    
+
     // 更新当前灯谜状态
     riddles.value[currentIndex.value] = {
       ...currentRiddle.value,
       solved: true,
       userAnswer
     }
-    
+
     // 计算得分
     if (isCorrect) {
-		const hintScore = currentRiddle.value.showHint ? -0.5 : 0 // 提示扣分
-		score.value += GAME_MODES[gameMode.value].scoreMultiplier + hintScore
+      const hintScore = currentRiddle.value.showHint ? -0.5 : 0 // 提示扣分
+      score.value += GAME_MODES[gameMode.value].scoreMultiplier + hintScore
     }
-    
+
     return isCorrect
   }
 
@@ -135,18 +135,18 @@ export const useRiddleStore = defineStore('riddle', () => {
     gameTimeLimit,
     gameMode,
     totalQuestions,
-	totalScore,
-	score,
-    
+    totalScore,
+    score,
+
     // 计算属性
     currentRiddle,
     isLastQuestion,
     correctCount,
     accuracy,
-    
+
     // 方法
     startNewGame,
-	selectCurrentAnswer,
+    selectCurrentAnswer,
     submitAnswer,
     nextQuestion,
     skipQuestion,
