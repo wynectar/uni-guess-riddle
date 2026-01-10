@@ -4,6 +4,8 @@
 ![小程序码](./mini-code.jpg)
 
 ## 项目结构
+
+```bash
 uni-guess-riddle/
 ├── pages/
 │   ├── index/         # 灯谜首页
@@ -13,6 +15,7 @@ uni-guess-riddle/
 ├── store/             # Pinia状态管理
 ├── utils/             # 工具函数
 └── uni.scss           # 全局样式
+```
 
 ## 主要功能
 
